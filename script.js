@@ -1,4 +1,3 @@
-//your JS code here. If required.
 // How many squares to render
 const TOTAL = 800;
 
@@ -34,11 +33,10 @@ for (let i = 0; i < TOTAL; i++) {
 
     // After 1 second, revert smoothly (CSS transition handles smoothness)
     sq._tid = setTimeout(() => {
-  sq.style.backgroundColor = 'rgb(29, 29, 29)';
-  sq.style.boxShadow = 'none';
-  sq._tid = null;
-}, 1000);
-
+      sq.style.backgroundColor = '#1b1f26';
+      sq.style.boxShadow = 'none';
+      sq._tid = null;
+    }, 1000);
   });
 
   // Optional: if mouse leaves early, still allow the scheduled fade-back.

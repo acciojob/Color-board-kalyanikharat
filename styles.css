@@ -1,4 +1,4 @@
-/*  your css code here. If applicable */
+/* Page base */
 * { box-sizing: border-box; }
 body {
   margin: 0;
@@ -22,12 +22,16 @@ body {
 
 /* Each square (required class: square) */
 .square {
-  width: 20px;
-  height: 20px;
-  background-color: rgb(29, 29, 29);
-  transition: background-color 1s ease, box-shadow 1s ease;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: #1b1f26;             /* base color */
+  border: 1px solid #0e1116;
+  transition:
+    background-color 1s ease,      /* smooth fade-back in 1s */
+    box-shadow 1s ease,
+    transform 120ms ease;          /* small tap/hover feedback */
 }
-
 
 /* Optional micro feedback on pointer down */
 .square:active {
