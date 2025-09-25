@@ -1,28 +1,47 @@
 //your JS code here. If required.
-const container = document.getElementById("container");
-const squares = 800;
-for (let i = 0; i < squares; i++) {
-  const square = document.createElement('div');
-  square.classList.add('square');
-	
-  square.addEventListener('mouseover', () => setColor(square));
-  square.addEventListener('mouseout', () => removeColor(square));
+// How many squares to render
+const TOTAL = 800;
 
-  container.appendChild(square);
-}
-function setColor(element) {
-  const color = getRandomColor();
-  element.style.backgroundColor = color;
-}
+// Mount point
+const board = document.getElementById('board');
 
-function removeColor(element) {
-  setTimeout(() => {
-    element.style.backgroundColor = '#1d1d1d';
-  }, 1000);
+// Utility: random color (nice saturated palette)
+function randomColor() {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }
 
-function getRandomColor() {
-  const colors = ['#e74c3c', '#8e44ad', '#3498db', '#e67e22', '#2ecc71'];
-  return colors[Math.floor(Math.random() * colors.length)];
-}
+// Create and attach 800 squares
+for (let i = 0; i < TOTAL; i++) {
+  const sq = document.createElement('div');
+  sq.className = 'square';
 
+  // We’ll store any pending timeout id on the node itself
+  // so quick re-hovers don’t fight each other.
+  sq.addEventListener('mouseenter', () => {
+    // If a previous fade-back is pending, cancel it
+    if (sq._tid) {
+      clearTimeout(sq._tid);
+      sq._tid = null;
+    }
+    const color = randomColor();
+    sq.style.backgroundColor = color;
+    sq.style.boxShadow = `0 0 10px 2px ${color}`;
+
+    // After 1 second, revert smoothly (CSS transition handles smoothness)
+    sq._tid = setTimeout(() => {
+      sq.style.backgroundColor = '#1b1f26';
+      sq.style.boxShadow = 'none';
+      sq._tid = null;
+    }, 1000);
+  });
+
+  // Optional: if mouse leaves early, still allow the scheduled fade-back.
+  // (No extra code needed; the timeout will handle it.)
+
+  board.appendChild(sq);
+}
