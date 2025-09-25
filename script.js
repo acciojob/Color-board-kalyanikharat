@@ -1,5 +1,5 @@
 //your JS code here. If required.
-const container = document.getElementById("Container");
+const container = document.getElementById("container");
 const squares = 800;
 for (let i = 0; i < squares; i++) {
   const square = document.createElement('div');
